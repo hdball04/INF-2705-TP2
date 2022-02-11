@@ -193,9 +193,9 @@ public:
     void positionnerCamera(int exoplaneteChoisie)
     {
         // partie 2: modifs ici ...
-        //Exoplanete *exoplanete = exoplanetes[exoplaneteChoisie-1];
-        //MatricePipeline mtc = ...
-        //matrVisu.setMatr( ... );
+        Exoplanete *exoplanete = exoplanetes[exoplaneteChoisie-1];
+        MatricePipeline mtc = exoplanete->obtenirMatriceCourante();
+        matrVisu.setMatr(glm::inverse(glm::mat4(mtc)));
     }
 
     void afficherToutesLesExoplanetes()
@@ -244,10 +244,8 @@ public:
         
         // partie 1: modifs ici ...
         // ..
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-        glEnable(GL_STENCIL_TEST);
-        //glDisable(GL_DEPTH_TEST);
-
+        
+        //glEnable(GL_STENCIL_TEST);
 
         glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
         glStencilFunc( GL_NEVER, 1, 1 );
@@ -281,7 +279,7 @@ public:
         glStencilOp( GL_KEEP, GL_KEEP, GL_KEEP );
 
         // partie 1: modifs ici ...
-        // [ au besoin, utiliser : if ( Etat::debug ) glStencilFunc( GL_ALWAYS, 1, 1 ); // pour débogguer ]
+        if ( Etat::debug ) glStencilFunc( GL_ALWAYS, 1, 1 ); // pour débogguer ]
         // on trace le contenu de chaque lentille 5 fois
         
         glStencilFunc( GL_EQUAL, 1, 1 );
@@ -302,7 +300,8 @@ public:
         afficherParois();
 
         // lorsqu'on a passer dans le trou de ver, nous voyons l'ensemble des planètes
-        //if (exoplaneteChoisie)  ...
+        //if (exoplanetechosie)
+            
 
     }
     
